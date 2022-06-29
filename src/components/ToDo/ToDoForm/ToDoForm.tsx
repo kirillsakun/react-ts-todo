@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import {ToDoItemPropertiesInterface} from "../../../types/ToDo";
+import React, { useState } from 'react';
+import { ToDoItemPropertiesInterface } from '../../../types/ToDo';
 
 interface ToDoFormPropsInterface {
 	addToDo: (newToDo: ToDoItemPropertiesInterface) => void
 }
 
-const ToDoForm: React.FunctionComponent<ToDoFormPropsInterface> = (props) => {
-
-	const [newTodoText, setNewTodoText] = useState<string>('')
+const ToDoForm: React.FunctionComponent<ToDoFormPropsInterface> = ({ addToDo }) => {
+	const [newTodoText, setNewTodoText] = useState<string>('');
 
 	const onSubmit = (event: React.FormEvent) => {
 		const id = Date.now();
@@ -15,14 +14,14 @@ const ToDoForm: React.FunctionComponent<ToDoFormPropsInterface> = (props) => {
 
 		event.preventDefault();
 
-		props.addToDo({
+		addToDo({
 			id,
 			isComplete,
-			text: newTodoText
-		})
+			text: newTodoText,
+		});
 
-		setNewTodoText('')
-	}
+		setNewTodoText('');
+	};
 
 	return (
 		<form onSubmit={onSubmit}>
@@ -30,12 +29,12 @@ const ToDoForm: React.FunctionComponent<ToDoFormPropsInterface> = (props) => {
 				required
 				type="text"
 				value={newTodoText}
-				onChange={event => setNewTodoText(event.target.value)}
+				onChange={(event) => setNewTodoText(event.target.value)}
 			/>
 			<button type="submit">Add</button>
 		</form>
-	)
-}
+	);
+};
 
 
 export default ToDoForm;

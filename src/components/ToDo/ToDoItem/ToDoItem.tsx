@@ -1,31 +1,35 @@
-import React, {useMemo} from 'react';
-import {ToDoItemPropertiesInterface, ToDoItemActionInterface} from "../../../types/ToDo";
-import './ToDoItem.scss'
+import React, { useMemo } from 'react';
+import { ToDoItemPropertiesInterface, ToDoItemActionInterface } from '../../../types/ToDo';
+import './ToDoItem.scss';
 
 interface ToDoFormPropsInterface extends ToDoItemPropertiesInterface, ToDoItemActionInterface {}
 
 
-const ToDoItem: React.FunctionComponent<ToDoFormPropsInterface> = (props) => {
+const ToDoItem: React.FunctionComponent<ToDoFormPropsInterface> = ({
+	isComplete, id, text, deleteItem, setCompleteState,
+}) => {
+	const stateButtonText = useMemo(() => (isComplete ? 'Mark as incomplete' : 'Mark us complete'), [isComplete]);
 
-	const stateButtonText = useMemo(() => {
-		return props.isComplete ? 'Mark as incomplete' : 'Mark us complete'
-	}, [props.isComplete])
-
-	const className = useMemo(() => {
-		return props.isComplete ? 'todo__item todo__item--completed' : 'todo__item'
-	}, [props.isComplete])
+	const className = useMemo(() => (isComplete ? 'todo__item todo__item--completed' : 'todo__item'), [isComplete]);
 
 	return (
 		<li className={className}>
-			<div className="todo__text"> {props.text} </div>
+			<div className="todo__text">
+				{ text }
+			</div>
 			<div className="todo__actions">
-				<button onClick={() => props.deleteItem(props.id)}>Delete</button>
-				<button onClick={() => {
-					props.setCompleteState(props.id, !props.isComplete)
-				}}>{stateButtonText}</button>
+				<button type="button" onClick={() => deleteItem(id)}>Delete</button>
+				<button
+					type="button"
+					onClick={() => {
+						setCompleteState(id, !isComplete);
+					}}
+				>
+					{ stateButtonText }
+				</button>
 			</div>
 		</li>
-	)
-}
+	);
+};
 
-export default ToDoItem
+export default ToDoItem;
