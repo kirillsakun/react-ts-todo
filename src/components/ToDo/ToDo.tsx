@@ -3,6 +3,8 @@ import ToDoForm from './ToDoForm/ToDoForm';
 import ToDoList from './ToDoList/ToDoList';
 import { ToDoItemPropertiesInterface, ToDoItemActionInterface } from '../../types/ToDo';
 
+import './ToDo.scss';
+
 
 const ToDo:React.FunctionComponent = () => {
 	const [toDoList, setToDoList] = useState<ToDoItemPropertiesInterface[]>([
